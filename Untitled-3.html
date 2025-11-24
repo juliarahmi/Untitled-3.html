@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MindCare — Interactive Wireframe</title>
+  <style>
+    :root{--bg:#badfcd;--card:#ffffff;--accent:#2e926ca5;--muted:#6b7280}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:#0f172a}
+    .container{max-width:1000px;margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .logo{
+  font-weight:700;
+  color:var(--accent);
+  font-size:32px;
+}
+    nav button{background:transparent;border:0;color:var(--muted);margin-left:10px;padding:8px;border-radius:8px;cursor:pointer}
+    nav button:hover{background:#e6eefc;color:var(--accent)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:var(--card);border-radius:25px;padding:40px;box-shadow:0 10px 20px rgba(15,23,42,0.06)}
+    .hero{display:flex;gap:12px;align-items:center}
+    .hero h1{margin:0;font-size:20px}
+    .hero p{margin:2px 0 0;color:var(--muted);font-size:14px}
+    .actions{margin-top:12px}
+    .btn{background:var(--accent);color:#fff;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid #dbeafe}
+    .list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .psych-card{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;border:1px solid #eef2ff}
+    .psych-card img{width:60px;height:65px;border-radius:15px;background:#eef}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* right column */
+    .side{display:flex;flex-direction:column;gap:12px}
+    .chat{height:260px;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
+    .msg{max-width:78%;padding:8px 10px;border-radius:10px}
+    .msg.user{align-self:flex-end;background:#e6f0ff}
+    .msg.bot{align-self:flex-start;background:#f3f4f6}
+    .input-row{display:flex;gap:8px;margin-top:8px}
+    .input-row input{flex:1;padding:8px;border-radius:8px;border:1px solid #e6edf7}
+
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.4);visibility:hidden;opacity:0;transition:all .18s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal .sheet{width:420px;background:var(--card);border-radius:12px;padding:16px}
+    .row{display:flex;gap:8px}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media(max-width:880px){.grid{grid-template-columns:1fr}.side{order:2}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">MindCare</div>
+      <nav>
+        <button id="btn-home">Beranda</button>
+        <button id="btn-psikolog">Psikolog</button>
+        <button id="btn-journal">Journaling AI</button>
+      </nav>
+    </header>
+
+    <div class="grid">
+     <main>
+  <section class="card hero">
+    <!-- KOLOM KIRI -->
+    <div style="flex:1">
+      <h1>Pusat Konsultasi Psikologi Online — Aman & Terjangkau</h1>
+      <p class="small">
+        Chat atau video call dengan psikolog berlisensi. Coba journaling AI untuk kenali emosimu.
+      </p>
+
+      <div class="actions">
+        <button class="btn" id="start-consult">Mulai Konsultasi</button>
+        <button class="btn secondary" id="try-journal">Coba Journaling AI</button>
+      </div>
+    </div>
+
+
+  <!-- KOLOM KANAN (LOGO) -->
+  <div style="
+    width:200px;
+    text-align:center;
+    background:#ffffff;
+    padding:20px;
+    border-radius:15px;
+  ">
+    <img src="c:\Users\lenovo\Downloads\IMG_7444-removebg-preview.png"
+         alt="MindCare Logo"
+         style="width:130px; height:auto;">
+    <div class="small">Aplikasi ramah Gen Z & Milenial</div>
+  </div>
+
+</section>
+
+
+        <section class="card">
+          <h3 style="margin:0 0 8px 0">Psikolog Rekomendasi</h3>
+          <div class="list" id="psych-list">
+            <div class="psych-card" data-id="1"><img src="https://img.okezone.com/content/2022/11/20/194/2711131/6-potret-dokter-cantik-samira-senyum-manisnya-bikin-meleleh-FuE9CqKBAZ.jpg"><div style="flex:1"><strong>Dr. Anisa</strong><div class="small">Spesialis: Anxiety & Stress • 4.8 ★</div></div><button class="btn" data-action="book" data-name="Dr. Anisa">Pesan</button></div>
+            <div class="psych-card" data-id="2"><img src="https://www.pngmart.com/files/21/Male-Doctor-PNG-Isolated-HD.png"><div style="flex:1"><strong>Mr. Bima</strong><div class="small">Spesialis: Relational & Career • 4.7 ★</div></div><button class="btn" data-action="book" data-name="Mr. Bima">Pesan</button></div>
+            <div class="psych-card" data-id="3"><img src="https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2022/03/02050533/5-Rekomendasi-Dokter-Umum-Terbaik-di-Medan.jpg"><div style="flex:1"><strong>Ms. Sari</strong><div class="small">Spesialis: Sleep & Burnout • 4.6 ★</div></div><button class="btn" data-action="book" data-name="Ms. Sari">Pesan</button></div>
+          </div>
+        </section>
+
+        <section class="card" id="journal-section" style="margin-top:12px">
+          <h3 style="margin:0 0 8px 0">Journaling AI — Tulis Perasaanmu</h3>
+          <textarea id="journal-input" rows="4" 
+  style="
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #e6edf7;
+    resize:none;           /* <<< tambah ini */
+    overflow:auto;         /* <<< supaya tetap rapi */
+  "
+  placeholder="Coba tulis apa yang kamu rasakan hari ini..."
+></textarea>
+
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn" id="analyze">Analisis Emosi</button>
+            <button class="btn secondary" id="clear-journal">Bersihkan</button>
+          </div>
+          <div id="journal-output" style="margin-top:10px;color:var(--muted)"></div>
+        </section>
+
+      </main>
+
+      <aside class="side">
+        <div class="card">
+          <strong>Chat Cepat (Simulasi)</strong>
+          <div class="chat" id="chat-box">
+            <div class="msg bot">Halo! Butuh bantuan hari ini? Coba klik "Mulai Konsultasi" atau tulis di journaling.</div>
+          </div>
+          <div class="input-row">
+            <input id="chat-input" placeholder="Ketik pesan... (contoh: aku cemas)" />
+            <button class="btn" id="send-chat">Kirim</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <strong>Ringkasan Paket</strong>
+          <div class="small" style="margin-top:8px">Paket Per Sesi • Rp80.000 | Langganan Bulanan • Rp250.000</div>
+          <div style="margin-top:10px;display:flex;gap:8px"><button class="btn" id="btn-subscribe">Langganan</button><button class="btn secondary" id="btn-pay">Bayar Sekali</button></div>
+        </div>
+
+        <div class="card">
+          <strong>Notifikasi</strong>
+          <div class="small" id="notif-area" style="margin-top:8px">Tidak ada notifikasi baru.</div>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer class="small">Prototype interaktif — bukan aplikasi final. Klik elemen untuk mencoba tindakan.</footer>
+  </div>
+
+  <!-- Modal booking -->
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <h3 id="modal-title">Pesan Sesi</h3>
+      <p class="small" id="modal-sub">Pilih tanggal dan jam</p>
+      <div class="row" style="margin-top:8px">
+        <input type="date" id="pick-date" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6edf7" />
+        <select id="pick-time" style="padding:8px;border-radius:8px;border:1px solid #e6edf7">
+          <option>08:00</option>
+          <option>11:00</option>
+          <option>13:00</option>
+          <option>15:00</option>
+          <option>17:00</option>
+          <option>19:00</option>
+          <option>21:00</option>
+        </select>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn secondary" id="modal-cancel">Batal</button>
+        <button class="btn" id="modal-confirm">Konfirmasi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Utility
+    const openModal = (title)=>{
+      document.getElementById('modal-title').textContent = title
+      document.getElementById('modal').classList.add('open')
+    }
+    const closeModal = ()=>document.getElementById('modal').classList.remove('open')
+
+    // Buttons
+    document.getElementById('start-consult').addEventListener('click', ()=>openModal('Mulai Konsultasi — Pilih Psikolog'))
+    document.getElementById('try-journal').addEventListener('click', ()=>document.getElementById('journal-input').focus())
+
+    // dynamic book buttons
+    document.querySelectorAll('[data-action="book"]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const name = e.currentTarget.getAttribute('data-name')
+        openModal('Pesan Sesi dengan ' + name)
+        document.getElementById('modal-sub').textContent = 'Pilih tanggal & jam untuk ' + name
+      })
+    })
+
+    document.getElementById('modal-cancel').addEventListener('click', closeModal)
+    document.getElementById('modal-confirm').addEventListener('click', ()=>{
+      const d = document.getElementById('pick-date').value
+      const t = document.getElementById('pick-time').value
+      if(!d){alert('Pilih tanggal terlebih dahulu') ; return}
+      closeModal()
+      notify('Sesi berhasil dipesan pada ' + d + ' ' + t)
+    })
+
+    // Chat simulation
+    const chatBox = document.getElementById('chat-box')
+    const append = (text, who='bot')=>{
+      const el = document.createElement('div')
+      el.className = 'msg ' + (who==='user'?'user':'bot')
+      el.textContent = text
+      chatBox.appendChild(el)
+      chatBox.scrollTop = chatBox.scrollHeight
+    }
+    document.getElementById('send-chat').addEventListener('click', ()=>{
+      const txt = document.getElementById('chat-input').value.trim()
+      if(!txt) return
+      append(txt,'user')
+      document.getElementById('chat-input').value=''
+      setTimeout(()=>{
+        // simple rule-based replies
+        const lower = txt.toLowerCase()
+        if(lower.includes('cemas')||lower.includes('stres')||lower.includes('gundah')) append('Saya mendengar kamu merasa cemas. Mau coba sesi singkat atau journaling AI?', 'bot')
+        else if(lower.includes('ya')||lower.includes('oke')) append('Silakan pilih "Mulai Konsultasi" untuk pesan sesi atau klik "Coba Journaling AI".', 'bot')
+        else append('Terima kasih telah berbagi. Jika butuh bantuan lebih lanjut, pilih "Mulai Konsultasi".', 'bot')
+      },700)
+    })
+
+    // Journaling analysis (very simple sentiment simulation)
+    document.getElementById('analyze').addEventListener('click', ()=>{
+      const text = document.getElementById('journal-input').value.trim()
+      const out = document.getElementById('journal-output')
+      if(!text){out.textContent = 'Ketik sedikit cerita terlebih dahulu.'; return}
+      // naive sentiment
+      const neg = ['sedih','cemas','marah','stress','stres','putus asa','kesepian','takut']
+      const pos = ['senang','lega','bahagia','syukur','tertarik','semangat']
+      let score = 0
+      const w = text.toLowerCase()
+      neg.forEach(k=>{ if(w.includes(k)) score -=1 })
+      pos.forEach(k=>{ if(w.includes(k)) score +=1 })
+      let label = 'Netral'
+      if(score<=-1) label = 'Negatif — mungkin cemas atau sedih'
+      if(score>=1) label = 'Positif — suasana hati baik'
+      out.innerHTML = `<strong>Hasil Analisis:</strong> ${label}. <div class="small" style="margin-top:6px">Saran: ${score<=-1? 'Coba buat sesi singkat atau tulis detailnya lagi agar psikolog lebih memahami.' : 'Lanjutkan journaling & cek konten self-healing.'}</div>`
+    })
+
+    document.getElementById('clear-journal').addEventListener('click', ()=>{document.getElementById('journal-input').value='';document.getElementById('journal-output').textContent=''})
+
+    // simple notifications
+    function notify(txt){
+      const area = document.getElementById('notif-area')
+      area.textContent = txt
+      setTimeout(()=>{ area.textContent = 'Tidak ada notifikasi baru.' },5000)
+    }
+
+    // payments / subscribe simulation
+    document.getElementById('btn-pay').addEventListener('click', ()=>{
+      notify('Pembayaran berhasil. Terima kasih!')
+      alert('Simulasi pembayaran sukses — ini tampilan mock, bukan transaksi nyata.')
+    })
+    document.getElementById('btn-subscribe').addEventListener('click', ()=>{
+      notify('Langganan aktif. Selamat menikmati layanan MindCare!')
+    })
+
+    // quick nav
+    document.getElementById('btn-psikolog').addEventListener('click', ()=>{
+      window.scrollTo({top:350,behavior:'smooth'})
+    })
+    document.getElementById('btn-journal').addEventListener('click', ()=>{
+      document.getElementById('journal-input').focus()
+      document.getElementById('journal-section').style.boxShadow = '0 8px 28px rgba(43,108,176,0.12)'
+      setTimeout(()=>document.getElementById('journal-section').style.boxShadow='none',900)
+    })
+
+  </script>
+</body>
+</html>
